@@ -1,0 +1,9 @@
+header:
+  button:
+    signUp: Sign Up
+    signIn: Sign In
+
+auth:
+  modal:
+    signUpTitle: Sign Up
+    signInTitle: Sign In
