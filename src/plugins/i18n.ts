@@ -31,8 +31,8 @@ export const AVAILABLE_LANGUAGES: Lang[] = [
 
 // Create locale map from locale files
 const localesMap = Object.fromEntries(
-  Object.entries(import.meta.glob(`../../locales/*.yml`)).map(
-    ([path, loadLocale]) => [path.match(/([\w-]*)\.yml$/)?.[1], loadLocale],
+  Object.entries(import.meta.glob(`../../locales/*.json`)).map(
+    ([path, loadLocale]) => [path.match(/([\w-]*)\.json$/)?.[1], loadLocale],
   ),
 ) as Record<Locale, () => Promise<{ default: Record<string, string> }>>
 export const loadedLanguages: string[] = []
@@ -42,9 +42,7 @@ const messages = ref<Record<string, Record<string, any>>>({})
 export function pathWithLocale(path: string, lang?: string) {
   const finalLang = lang || locale.value
 
-  const prefix = finalLang === FALLBACK_LANGUAGE
-    ? ''
-    : path.startsWith(`/${finalLang}`) ? '' : finalLang
+  const prefix = path.startsWith(`/${finalLang}`) ? '' : finalLang
 
   return removeDoubleSlash(`/${prefix}/${path}`)
 }
@@ -52,10 +50,8 @@ export function pathWithLocale(path: string, lang?: string) {
 export function setLanguage(lang: Locale) {
   locale.value = lang as any
 
-  if (typeof document !== 'undefined') {
+  if (typeof document !== 'undefined')
     document.querySelector('html')?.setAttribute('lang', lang)
-    localStorage.setItem('lang', lang)
-  }
 }
 
 export async function loadLanguageAsync(langCode: Lang['code']): Promise<void> {
@@ -63,10 +59,6 @@ export async function loadLanguageAsync(langCode: Lang['code']): Promise<void> {
 
   if (!availableLocales.includes(langCode))
     finalLangCode = FALLBACK_LANGUAGE
-
-  // If the same language
-  if (locale.value === finalLangCode)
-    return setLanguage(finalLangCode)
 
   // If the language was already loaded
   if (loadedLanguages.includes(finalLangCode))
@@ -99,25 +91,11 @@ export function te(msg: string) {
     }, messages.value[locale.value]) !== msg
 }
 
-function detectUsedLocale(route: RouteLocationNormalizedLoaded) {
-  const lang = localStorage.getItem('lang')
-  const target = route.params.locale?.toString()
-  if (target?.length && target !== lang)
-    localStorage.setItem('lang', target)
-  else if (!target)
-    localStorage.setItem('lang', FALLBACK_LANGUAGE)
-}
-
 function getUserLocale(route: RouteLocationNormalizedLoaded) {
   if (isSSR())
     return (route.params.locale?.toString() || FALLBACK_LANGUAGE) as Lang['code']
 
-  detectUsedLocale(route)
-
-  const target
-    = route.params.locale?.toString()
-    || localStorage.getItem('lang')
-    || FALLBACK_LANGUAGE
+  const target = route.params.locale?.toString() || FALLBACK_LANGUAGE
 
   return (availableLocales.includes(target) ? target : FALLBACK_LANGUAGE) as Lang['code']
 }
