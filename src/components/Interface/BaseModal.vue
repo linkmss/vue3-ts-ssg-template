@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Close from '@/assets/icons/close.svg'
+
 interface Props {
   name: string
 }
@@ -17,9 +19,7 @@ const onClose = () => emit('close')
           {{ name }}
         </span>
 
-        <div class="w-4 h-4 text-ct-secondary hover:text-primary cursor-pointer transition" @click="onClose">
-          {{ 'close icon' }}
-        </div>
+        <Close class="w-4 h-4 text-ct-secondary hover:text-primary cursor-pointer transition" @click="onClose" />
       </div>
     </slot>
 

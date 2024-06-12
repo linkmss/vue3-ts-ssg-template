@@ -1,32 +1,41 @@
 <script setup lang="ts">
-import { onMounted, ref, useAttrs, useSlots } from 'vue'
+import { useAttrs, useSlots } from 'vue'
 
+interface Props {
+  label?: string
+  type?: 'text' | 'number' | 'password' | 'email'
+}
+
+withDefaults(defineProps<Props>(), {
+  type: 'text',
+})
 const slots = useSlots()
 const attrs = useAttrs()
-
-const input = ref<HTMLInputElement | null>(null)
-
-if (attrs?.autofocus)
-  onMounted(() => input.value?.focus())
 </script>
 
 <template>
-  <label class="relative w-full">
-    <span v-if="slots.rightIcon" class="absolute right-3 top-1/2 -translate-y-1/2">
-      <slot name="rightIcon" />
+  <label class="flex flex-col gap-1">
+    <span v-if="label" class="text-ct-regular text-base">
+      {{ label }}
     </span>
 
-    <input
-      ref="input"
-      type="text"
-      :class="[
-        $style.input,
-        {
-          'pr-10': slots.rightIcon,
-        },
-      ]"
-      v-bind="attrs"
-    >
+    <span class="relative w-full">
+      <span v-if="slots.rightIcon" class="absolute right-3 top-1/2 -translate-y-1/2">
+        <slot name="rightIcon" />
+      </span>
+
+      <input
+        :type="type"
+        :class="[
+          $style.input,
+          {
+            'pr-10': slots.rightIcon,
+          },
+        ]"
+        v-bind="attrs"
+      >
+    </span>
+
   </label>
 </template>
 

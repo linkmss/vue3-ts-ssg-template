@@ -15,10 +15,14 @@
         "login": "Введите логин",
         "password": "Введите пароль"
       },
-      "forgotPassword": "Забыли пароль ?",
+      "labels": {
+        "login": "Логин",
+        "password": "Пароль"
+      },
       "action": {
         "signIn": "Авторизация",
         "signUp": "Регистрация",
+        "forgotPassword": "Забыли пароль ?",
         "alreadyRegistered": "Уже зарегистрированны?",
         "haveNotRegisteredYet": "Еще не зарегистрированны?"
       }
