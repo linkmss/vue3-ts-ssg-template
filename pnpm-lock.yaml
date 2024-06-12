@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@tanstack/vue-query':
+    specifier: ^5.45.0
+    version: 5.45.0(vue@3.3.8)
   '@unocss/reset':
     specifier: ^0.57.4
     version: 0.57.4
@@ -2604,6 +2607,33 @@ packages:
       string.prototype.matchall: 4.0.8
     dev: true
 
+  /@tanstack/match-sorter-utils@8.15.1:
+    resolution: {integrity: sha512-PnVV3d2poenUM31ZbZi/yXkBu3J7kd5k2u51CGwwNojag451AjTH9N6n41yjXz2fpLeewleyLBmNS6+HcGDlXw==}
+    engines: {node: '>=12'}
+    dependencies:
+      remove-accents: 0.5.0
+    dev: false
+
+  /@tanstack/query-core@5.45.0:
+    resolution: {integrity: sha512-RVfIZQmFUTdjhSAAblvueimfngYyfN6HlwaJUPK71PKd7yi43Vs1S/rdimmZedPWX/WGppcq/U1HOj7O7FwYxw==}
+    dev: false
+
+  /@tanstack/vue-query@5.45.0(vue@3.3.8):
+    resolution: {integrity: sha512-WogAH4+xDPWbiK9CUXAE4cQiCyvWeYZI3g3/onKbkb3tVnoEPRhbGHANgxpfAEFY165Vj4afKnI3hkVQvr7aHA==}
+    peerDependencies:
+      '@vue/composition-api': ^1.1.2
+      vue: ^2.6.0 || ^3.3.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      '@tanstack/match-sorter-utils': 8.15.1
+      '@tanstack/query-core': 5.45.0
+      '@vue/devtools-api': 6.6.3
+      vue: 3.3.8(typescript@5.2.2)
+      vue-demi: 0.14.8(vue@3.3.8)
+    dev: false
+
   /@tootallnate/once@2.0.0:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
@@ -3656,6 +3686,10 @@ packages:
 
   /@vue/devtools-api@6.5.0:
     resolution: {integrity: sha512-o9KfBeaBmCKl10usN4crU53fYtC1r7jJwdGKjPT24t348rHxgfpZ0xL3Xm/gLUYnc0oTp8LAmrxOeLyu6tbk2Q==}
+
+  /@vue/devtools-api@6.6.3:
+    resolution: {integrity: sha512-0MiMsFma/HqA6g3KLKn+AGpL1kgKhFWszC9U29NfpWK5LE7bjeXxySWJrOJ77hBz+TBrBQ7o4QJqbPbqbs8rJw==}
+    dev: false
 
   /@vue/language-core@1.8.22(typescript@5.2.2):
     resolution: {integrity: sha512-bsMoJzCrXZqGsxawtUea1cLjUT9dZnDsy5TuZ+l1fxRMzUGQUG9+Ypq4w//CqpWmrx7nIAJpw2JVF/t258miRw==}
@@ -9628,6 +9662,10 @@ packages:
     engines: {node: '>= 0.10'}
     dev: true
 
+  /remove-accents@0.5.0:
+    resolution: {integrity: sha512-8g3/Otx1eJaVD12e31UbJj1YzdtVvzH85HV7t+9MJYk/u3XmkOUJ5Ys9wQrf9PCPK8+xn4ymzqYCiZl6QWKn+A==}
+    dev: false
+
   /repeat-element@1.1.4:
     resolution: {integrity: sha512-LFiNfRcSu7KK3evMyYOuCzv3L10TW7yC1G2/+StMjK8Y6Vqd2MG7r/Qjw4ghtuCOjFvlnms/iMmLqpvW/ES/WQ==}
     engines: {node: '>=0.10.0'}
@@ -11796,6 +11834,21 @@ packages:
   /vue-component-type-helpers@1.8.22:
     resolution: {integrity: sha512-LK3wJHs3vJxHG292C8cnsRusgyC5SEZDCzDCD01mdE/AoREFMl2tzLRuzwyuEsOIz13tqgBcnvysN3Lxsa14Fw==}
     dev: true
+
+  /vue-demi@0.14.8(vue@3.3.8):
+    resolution: {integrity: sha512-Uuqnk9YE9SsWeReYqK2alDI5YzciATE0r2SkA6iMAtuXvNTMNACJLJEXNXaEy94ECuBe4Sk6RzRU80kjdbIo1Q==}
+    engines: {node: '>=12'}
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.3.8(typescript@5.2.2)
+    dev: false
 
   /vue-eslint-parser@9.3.2(eslint@8.53.0):
     resolution: {integrity: sha512-q7tWyCVaV9f8iQyIA5Mkj/S6AoJ9KBN8IeUSf3XEmBrOtxOZnfTg5s4KClbZBCK3GtnT/+RyCLZyDHuZwTuBjg==}

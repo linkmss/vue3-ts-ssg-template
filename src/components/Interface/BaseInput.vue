@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useAttrs, useSlots } from 'vue'
 
+type EventLocal = Event & { target: { value: string } }
 interface Props {
   label?: string
   type?: 'text' | 'number' | 'password' | 'email'
@@ -9,8 +10,16 @@ interface Props {
 withDefaults(defineProps<Props>(), {
   type: 'text',
 })
+const emit = defineEmits<{
+  (e: 'input', value: string): void
+  (e: 'change', value: string): void
+}>()
 const slots = useSlots()
 const attrs = useAttrs()
+
+const extractValueFromEvent = (event: EventLocal) => event.target.value
+
+const onEvent = (eventName: 'input' & 'change', event: EventLocal) => emit(eventName, extractValueFromEvent(event))
 </script>
 
 <template>
@@ -33,6 +42,8 @@ const attrs = useAttrs()
           },
         ]"
         v-bind="attrs"
+        @input="onEvent.bind('input')"
+        @change="onEvent.bind('change')"
       >
     </span>
 
