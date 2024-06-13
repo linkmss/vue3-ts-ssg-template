@@ -5,8 +5,12 @@ import BaseButton from '@/components/Interface/BaseButton.vue'
 import { useModal } from '@/composables/useModal'
 import type { AuthModalPayload } from '@/modules/auth'
 import { t } from '@/plugins/i18n'
+import { useUser } from '@/modules/user'
+import { useLogoutMutation } from '@/modules/auth/composable/useLogoutMutation'
 
 const modalLayer = useModal()
+const user = useUser()
+const logoutMutation = useLogoutMutation()
 
 function onOpenAuth(type: AuthModalPayload['type']) {
   modalLayer.show('auth', { type })
@@ -27,7 +31,17 @@ function onOpenAuth(type: AuthModalPayload['type']) {
         </picture>
       </div>
 
-      <div class="flex items-center gap-3">
+      <div v-if="user.isLogged.value" class="flex gap-4">
+        <span>
+          {{ `Nickname: ${user.data.value?.name}` }}
+        </span>
+
+        <span class="cursor-pointer" :class="logoutMutation.isPending.value && 'pointer-events-none opacity-50'" @click="logoutMutation.mutateAsync">
+          {{ 'Выйти' }}
+        </span>
+      </div>
+
+      <div v-else-if="user.isIdentificationEnd.value" class="flex items-center gap-3">
         <BaseButton class="w-[90px] screen-480:w-[110px]" @click="() => onOpenAuth('signIn')">
           <span class="uppercase text-extra-small font-700">
             {{ t('header.button.signIn') }}

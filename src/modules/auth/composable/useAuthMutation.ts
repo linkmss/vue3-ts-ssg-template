@@ -1,10 +1,12 @@
 import type { MutateFunction } from '@tanstack/vue-query'
-import { useMutation } from '@tanstack/vue-query'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import type { Ref } from 'vue'
 import type { AuthModalPayload } from '@/modules/auth'
 import { sendSignIn, sendSignUp } from '@/modules/auth/auth.service'
 import type { ServiceResponse } from '@/api/api.types'
 import type { AuthDtoRequest, AuthDtoResponse } from '@/modules/auth/auth.dto'
+import { mutateUser } from '@/modules/user'
+import { setToken } from '@/modules/auth/auth.helpers'
 
 interface UseAuthMutation {
   mutateAsync: MutateFunction<ServiceResponse<AuthDtoResponse>, Error, AuthDtoRequest, unknown>
@@ -18,14 +20,17 @@ interface UseAuthMutationArgs {
 }
 
 export function useAuthMutation({ type }: UseAuthMutationArgs): UseAuthMutation {
+  const queryClient = useQueryClient()
+
   const { mutateAsync, isError, isPending, data } = useMutation({
     mutationFn: type.value === 'signIn' ? sendSignIn : sendSignUp,
-    /**
-     * onSettled or onSuccess
-     * 1, Check for errors
-     * 2. Mutate user query with user data
-     * 3.
-     */
+    onSuccess(data) {
+      setToken('some token')
+      mutateUser({
+        queryClient,
+        updater: () => data.response.user,
+      })
+    },
   })
 
   return {

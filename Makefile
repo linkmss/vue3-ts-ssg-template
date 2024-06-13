@@ -6,3 +6,6 @@ build:
 
 preview:
 	pnpm run preview
+
+typecheck:
+	pnpm run typecheck
